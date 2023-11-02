@@ -186,6 +186,7 @@ public class Ventana extends JPanel implements ActionListener {
 
         if (settings.estado.isEnJuego()) {
 
+            Fondo.check_lineDone(settings);
             gravedad_piezas();
             
             instanciar_pieza();

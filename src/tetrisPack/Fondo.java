@@ -42,6 +42,70 @@ public class Fondo {
 		}
 	}
 
+	public static void check_lineDone(Settings sett) {
+
+		if (!sett.isCheckeando_matriz()) {
+			return;
+		}
+
+		int lineas_alavez = 0;
+		int filas = sett.filas;
+		int columnas = sett.columnas;
+
+		for (int i = filas - 1; i > 0; i --) {
+
+			Fondo[] matrizLinea = sett.tileFondo[i];
+
+			Boolean hasta_cuatro = true;
+
+			while (hasta_cuatro) {
+
+				int contador_cols = 0;
+
+				for (Fondo cols: matrizLinea) {
+
+					if (cols.isValor()) {
+						contador_cols ++;
+					}
+				}
+
+				if (contador_cols == columnas) {
+
+					int actualizarLineas = sett.getLineas();
+					actualizarLineas ++;
+					sett.setLineas(actualizarLineas);
+					System.out.println("Lineas: " + sett.getLineas());
+
+					lineas_alavez ++;
+					actualizar_matrizFondo(sett, i, filas, columnas);
+
+				} else {
+
+					hasta_cuatro = false;
+					break;
+				}
+			}
+		}
+
+		//instancia_infoLineas(lineas_alavez);
+		sett.setCheckeando_matriz(false);
+	}
+
+	private static void actualizar_matrizFondo(Settings sett, int filaActual, int filas, int columnas) {
+
+		for (int i = filaActual; i > 0; i --) {
+			for (int ii = 0; ii < columnas; ii ++) {
+
+				if (sett.tileFondo[i - 1][ii].isValor()) {
+					sett.tileFondo[i][ii].setValor(true);
+
+				} else {
+					sett.tileFondo[i][ii].setValor(false);
+				}
+			}
+		}
+	}
+
 	// Getters & Setters ----------------------
 	public int getColumna() {
 		return this.columna;

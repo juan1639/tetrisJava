@@ -72,6 +72,7 @@ public class Pieza {
 				this.y --;
 
 				sett.setOtraPieza(true);
+				sett.setCheckeando_matriz(true);
 				dejar_rastro(sett);
 			}
 
