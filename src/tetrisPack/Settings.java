@@ -20,7 +20,10 @@ public class Settings {
 	public final String piezas = "zsljoit";
 	public final int tiempo_infoLineas = 2000;
 
-	private int gravedad;
+	private int[] gravedad = {
+		45, 30, 25, 23, 20, 18, 16, 15, 12, 10,
+		10, 8, 7, 5, 5, 3, 3, 3, 2, 2, 1
+	};
 	private int incremento_dificultad;
 	private Boolean checkeando_matriz;
 	private int next_pieza;
@@ -32,52 +35,30 @@ public class Settings {
 
 	public Fondo[][] tileFondo = new Fondo[filas][columnas];
 
-	private int x, y;
-
 	public Controles controles;
 	public Estado estado;
 
 	// ------------------------------------------
     public Settings() {
 
-    	this.gravedad = 1100;
-    	this.incremento_dificultad = 10;
+    	this.gravedad = gravedad;
+    	this.incremento_dificultad = 0;
     	this.checkeando_matriz = false;
     	this.otraPieza = true;
     	this.next_pieza = 6;
     	this.lineas = 0;
-    	this.nivel = 0;
+    	this.nivel = 9;
     	this.hiScore = 27;
-
-    	this.x = 200;
-    	this.y = 200;
-
     	this.controles = new Controles();
     	this.estado = new Estado();
     }
 
     // Getters & Setters -------------------------
-    public int getX() {
-		return this.x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return this.y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-    public int getGravedad() {
+    public int[] getGravedad() {
 		return this.gravedad;
 	}
 
-	public void setGravedad(int gravedad) {
+	public void setGravedad(int[] gravedad) {
 		this.gravedad = gravedad;
 	}
 

@@ -13,7 +13,6 @@ public class Fondo {
 	private Boolean valor;
 
 	// --------------------------------------------------------
-
 	public Fondo(int columna, int fila, int ancho, int alto) {
 
 		this.columna = columna;
@@ -41,5 +40,30 @@ public class Fondo {
 			g.setColor(fondoNada);
             g.fillRect(x, y, this.ancho, this.alto);
 		}
+	}
+
+	// Getters & Setters ----------------------
+	public int getColumna() {
+		return this.columna;
+	}
+
+	public void setColumna(int columna) {
+		this.columna = columna;
+	}
+
+	public int getFila() {
+		return this.fila;
+	}
+
+	public void setFila(int fila) {
+		this.fila = fila;
+	}
+
+	public Boolean isValor() {
+		return this.valor;
+	}
+
+	public void setValor(Boolean valor) {
+		this.valor = valor;
 	}
 }

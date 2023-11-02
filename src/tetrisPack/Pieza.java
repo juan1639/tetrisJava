@@ -48,7 +48,7 @@ public class Pieza {
 		if (sett.controles.isIzquierda()) {
 
 			this.x --;
-			if (check_colision()) {
+			if (check_colision(sett)) {
 				this.x ++;
 			}
 
@@ -58,7 +58,7 @@ public class Pieza {
 		} else if (sett.controles.isDerecha()) {
 
 			this.x ++;
-			if (check_colision()) {
+			if (check_colision(sett)) {
 				this.x --;
 			}
 
@@ -68,8 +68,11 @@ public class Pieza {
 		} else if (sett.controles.isAbajo()) {
 
 			this.y ++;
-			if (check_colision()) {
+			if (check_colision(sett)) {
 				this.y --;
+
+				sett.setOtraPieza(true);
+				dejar_rastro(sett);
 			}
 
 			sett.controles.setAbajo(false);
@@ -84,7 +87,7 @@ public class Pieza {
 				this.rotacion = 0;
 			}
 
-			if (check_colision()) {
+			if (check_colision(sett)) {
 				this.rotacion = bck_rotacion;
 			}
 
@@ -93,7 +96,7 @@ public class Pieza {
 		}
 	}
 
-	public Boolean check_colision() {
+	public Boolean check_colision(Settings sett) {
 
 		int rotacion_idPieza = this.rotacion * 4;
 		int fin = rotacion_idPieza + 4;
@@ -110,9 +113,27 @@ public class Pieza {
 			if (colY > this.filas - 1 || colY < 0) {
 				return true;
 			}
+
+			if (sett.tileFondo[colY][colX].isValor()) {
+				return true;
+			}
 		}
 
 		return false;
+	}
+
+	private void dejar_rastro(Settings sett) {
+
+		int rotacion_idPieza = this.rotacion * 4;
+		int fin = rotacion_idPieza + 4;
+
+		for (int i = rotacion_idPieza; i < fin; i ++) {
+
+			int rastroX = this.x + this.idPieza[i][0];
+			int rastroY = this.y + this.idPieza[i][1];
+
+			sett.tileFondo[rastroY][rastroX].setValor(true);
+		}
 	}
 
 	// Getters & Setters ----------------------

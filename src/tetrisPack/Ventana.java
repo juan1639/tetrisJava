@@ -67,6 +67,28 @@ public class Ventana extends JPanel implements ActionListener {
     private void comenzar() {
 
         instanciar_matrizFondo();
+        instanciar_pieza();
+
+        timer = new Timer((int) (1000 / settings.FPS), this);
+        timer.start();
+    }
+
+    private void instanciar_matrizFondo() {
+
+        int filas = settings.filas;
+        int col = settings.columnas;
+        int ancho = settings.tileX;
+        int alto = settings.tileY;
+
+        for (int i = 0; i < filas; i ++) {
+            for (int ii = 0; ii < col; ii ++) {
+
+                settings.tileFondo[i][ii] = new Fondo(ii, i, ancho, alto);
+            }
+        }
+    }
+
+    private void instanciar_pieza() {
 
         if (settings.isOtraPieza()) {
 
@@ -86,24 +108,6 @@ public class Ventana extends JPanel implements ActionListener {
 
             // ---------------------------------------------------
             pieza = new Pieza(x, y, plantilla.pieza.get(elegida), col, filas);
-        }
-
-        timer = new Timer((int) (1000 / settings.FPS), this);
-        timer.start();
-    }
-
-    private void instanciar_matrizFondo() {
-
-        int filas = settings.filas;
-        int col = settings.columnas;
-        int ancho = settings.tileX;
-        int alto = settings.tileY;
-
-        for (int i = 0; i < filas; i ++) {
-            for (int ii = 0; ii < col; ii ++) {
-
-                settings.tileFondo[i][ii] = new Fondo(ii, i, ancho, alto);
-            }
         }
     }
 
@@ -162,42 +166,29 @@ public class Ventana extends JPanel implements ActionListener {
     //     }
     // }
 
-    private void update_snake() {
+    private void gravedad_piezas() {
 
-        // if (settings.estado.isEnJuego()) {
+        int[] gravedad = settings.getGravedad();
+        int nivel = settings.getNivel();
+        int contador = settings.getIncremento_dificultad();
+        contador ++;
 
-        //     int getX = settings.getX();
-        //     int getY = settings.getY();
+        if (contador >= gravedad[nivel]) {
+            contador = 0;
+            settings.controles.setAbajo(true);
+        }
 
-        //     if (settings.controles.isIzquierda()) {
-        //         getX -= 5;
-        //         settings.setX(getX);
-        //         settings.controles.setIzquierda(false);
-
-        //     } else if (settings.controles.isDerecha()) {
-        //         getX += 5;
-        //         settings.setX(getX);
-        //         settings.controles.setDerecha(false);
-
-        //     } else if (settings.controles.isRotar()) {
-        //         getY -= 5;
-        //         settings.setY(getY);
-        //         settings.controles.setRotar(false);
-
-        //     } else if (settings.controles.isAbajo()) {
-        //         getY += 5;
-        //         settings.setY(getY);
-        //         settings.controles.setAbajo(false);
-        //     }
-        // }
+        settings.setIncremento_dificultad(contador);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (settings.estado.isEnJuego()) {
+
+            gravedad_piezas();
             
-            //update_snake();
+            instanciar_pieza();
             pieza.actualiza(settings);
         }
 
