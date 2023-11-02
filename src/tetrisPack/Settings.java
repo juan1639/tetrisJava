@@ -30,6 +30,8 @@ public class Settings {
 	private int nivel;
 	private int hiScore;
 
+	public Fondo[][] tileFondo = new Fondo[filas][columnas];
+
 	private int x, y;
 
 	public Controles controles;

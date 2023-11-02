@@ -40,7 +40,7 @@ public class Ventana extends JPanel implements ActionListener {
         loadSettings();
 
         addKeyListener(new TAdapter());
-        setBackground(Color.gray);
+        setBackground(new Color(143, 127, 9));
         setFocusable(true);
 
         setPreferredSize(new Dimension(settings.resX, settings.resY));
@@ -66,11 +66,15 @@ public class Ventana extends JPanel implements ActionListener {
 
     private void comenzar() {
 
+        instanciar_matrizFondo();
+
         if (settings.isOtraPieza()) {
 
             settings.setOtraPieza(false);
             int x = settings.xInicial;
             int y = settings.yInicial;
+            int col = settings.columnas;
+            int filas = settings.filas;
 
             int nro_rnd = settings.getNext_pieza();
             int elegida = nro_rnd;
@@ -81,11 +85,26 @@ public class Ventana extends JPanel implements ActionListener {
             //verNext = new NextPieza(settings.xNext, settings.yNext, plantilla.pieza.get(nro_rnd));
 
             // ---------------------------------------------------
-            pieza = new Pieza(x, y, plantilla.pieza.get(elegida));
+            pieza = new Pieza(x, y, plantilla.pieza.get(elegida), col, filas);
         }
 
         timer = new Timer((int) (1000 / settings.FPS), this);
         timer.start();
+    }
+
+    private void instanciar_matrizFondo() {
+
+        int filas = settings.filas;
+        int col = settings.columnas;
+        int ancho = settings.tileX;
+        int alto = settings.tileY;
+
+        for (int i = 0; i < filas; i ++) {
+            for (int ii = 0; ii < col; ii ++) {
+
+                settings.tileFondo[i][ii] = new Fondo(ii, i, ancho, alto);
+            }
+        }
     }
 
     @Override
@@ -97,9 +116,16 @@ public class Ventana extends JPanel implements ActionListener {
     
     private void renderiza(Graphics g) {
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, settings.columnas * settings.tileX, settings.filas * settings.tileY);
-        
+        //g.setColor(Color.black);
+        //g.fillRect(0, 0, settings.columnas * settings.tileX, settings.filas * settings.tileY);
+
+        for (int i = 0; i < settings.filas; i ++) {
+            for (int ii = 0; ii < settings.columnas; ii ++) {
+
+                settings.tileFondo[i][ii].dibuja(g);
+            }
+        }
+
         if (settings.estado.isEnJuego()) {
 
             pieza.dibuja(g, settings.tileX, settings.tileY);
