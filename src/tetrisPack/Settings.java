@@ -18,6 +18,7 @@ public class Settings {
 	public final int xNext = 17;
 	public final int yNext = 16;
 	public final String piezas = "zsljoit";
+
 	public final int tiempo_infoLineas = 2000;
 
 	private int[] gravedad = {
@@ -45,6 +46,8 @@ public class Settings {
 	private int nivel;
 	private int hiScore;
 
+	private int pausa_rejugar;
+
 	public Fondo[][] tileFondo = new Fondo[filas][columnas];
 
 	public Controles controles;
@@ -60,8 +63,9 @@ public class Settings {
     	this.otraPieza = true;
     	this.next_pieza = 6;
     	this.lineas = 0;
-    	this.nivel = 9;
+    	this.nivel = 1;
     	this.hiScore = 27;
+    	this.pausa_rejugar = 200;
     	this.controles = new Controles();
     	this.estado = new Estado();
     }
@@ -137,6 +141,14 @@ public class Settings {
 
 	public void setHiScore(int hiScore) {
 		this.hiScore = hiScore;
+	}
+
+	public int getPausa_rejugar() {
+		return this.pausa_rejugar;
+	}
+
+	public void setPausa_rejugar(int pausa_rejugar) {
+		this.pausa_rejugar = pausa_rejugar;
 	}
 
     // ========================================================

@@ -14,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -27,8 +28,11 @@ public class Ventana extends JPanel implements ActionListener {
     private Settings settings;
     private Plantilla plantilla;
     private Colores colores;
+    private Gameover gameover;
 
     private Pieza pieza;
+
+    public int salir_rejugar;
 
     // --------------------------------------------------
     public Ventana() {
@@ -54,8 +58,6 @@ public class Ventana extends JPanel implements ActionListener {
         settings = new Settings();
         plantilla = new Plantilla();
         colores = new Colores();
-
-        System.out.println(plantilla.z[2][0] + "..." + plantilla.pieza.get(2)[2][1]);
     }
 
     private void loadImages() {
@@ -70,6 +72,7 @@ public class Ventana extends JPanel implements ActionListener {
 
         instanciar_matrizFondo();
         instanciar_pieza();
+        instanciar_gameOver();
 
         timer = new Timer((int) (1000 / settings.FPS), this);
         timer.start();
@@ -113,6 +116,21 @@ public class Ventana extends JPanel implements ActionListener {
         }
     }
 
+    private void instanciar_gameOver() {
+
+        int[] argsInt = new int[3];
+        String[] argsTxt = new String[2];
+
+        argsInt[0] = (int) (settings.resY / 9);
+        argsInt[1] = settings.resX;
+        argsInt[2] = settings.resY;
+
+        argsTxt[0] = "Game Over";
+        argsTxt[1] = "gameover";
+
+        gameover = new Gameover(argsInt, argsTxt, Color.yellow);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -122,8 +140,8 @@ public class Ventana extends JPanel implements ActionListener {
     
     private void renderiza(Graphics g) {
 
-        //g.setColor(Color.black);
-        //g.fillRect(0, 0, settings.columnas * settings.tileX, settings.filas * settings.tileY);
+        g.setColor(Color.black);
+        g.drawRect(0, 0, settings.columnas * settings.tileX, settings.filas * settings.tileY);
 
         for (int i = 0; i < settings.filas; i ++) {
             for (int ii = 0; ii < settings.columnas; ii ++) {
@@ -135,40 +153,15 @@ public class Ventana extends JPanel implements ActionListener {
         if (settings.estado.isEnJuego()) {
 
             pieza.dibuja(g, settings.tileX, settings.tileY);
+
+        } else if (settings.estado.isGameOver()) {
+
+            //System.out.println("Game Over");
+            gameover.dibuja(g, this);
         }
 
         Toolkit.getDefaultToolkit().sync();        
     }
-
-    // private void gameOver(Graphics g) {
-
-    //     textos((int) (resX / 10), "Game Over", 1, g);
-    //     textos((int) (resX / 30), "Pulse SPACE para jugar otra partida...", 2, g);
-    // }
-
-    // private void textos(int size, String texto, int idTxt, Graphics g) {
-
-    //     int fontSize = size;
-    //     String msg = texto;
-
-    //     Font fuente = new Font("Helvetica", Font.BOLD, fontSize);
-    //     FontMetrics metr = getFontMetrics(fuente);
-
-    //     g.setFont(fuente);
-
-    //     if (idTxt == 1) {
-    //         g.setColor(Color.orange);
-    //         g.drawString(msg, (resX - metr.stringWidth(msg)) / 2, resY / 2);
-
-    //     } else if (idTxt == 2) {
-    //         g.setColor(Color.white);
-    //         g.drawString(msg, (resX - metr.stringWidth(msg)) / 2, (int) (resY / 1.2));
-
-    //     } else if (idTxt == 3) {
-    //         g.setColor(Color.yellow);
-    //         g.drawString(msg, (resX - metr.stringWidth(msg)) / 2, 30);
-    //     }
-    // }
 
     private void gravedad_piezas() {
 
@@ -185,6 +178,34 @@ public class Ventana extends JPanel implements ActionListener {
         settings.setIncremento_dificultad(contador);
     }
 
+    private void pausa_optionPane() {
+
+        if (settings.getPausa_rejugar() <= 0) {
+            return;
+        }
+
+        int contador = settings.getPausa_rejugar();
+        contador --;
+        settings.setPausa_rejugar(contador);
+
+        if (settings.getPausa_rejugar() == 0) {
+
+            salir_rejugar = JOptionPane.showConfirmDialog(this, "Jugar otra partida?");
+
+            if (salir_rejugar == JOptionPane.NO_OPTION) {
+                System.out.println("Salir...");
+                Toolkit.getDefaultToolkit().beep();
+                System.exit(0);
+
+            } else if (salir_rejugar == JOptionPane.YES_OPTION) {
+                System.out.println("Jugar otra partida...");
+
+            } else if (salir_rejugar == JOptionPane.CANCEL_OPTION) {
+                System.out.println("Cancelar...");
+            }
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -195,6 +216,10 @@ public class Ventana extends JPanel implements ActionListener {
             
             instanciar_pieza();
             pieza.actualiza(settings);
+
+        } else if (settings.estado.isGameOver()) {
+
+            pausa_optionPane();
         }
 
         repaint();
@@ -210,22 +235,22 @@ public class Ventana extends JPanel implements ActionListener {
             if (settings.estado.isEnJuego()) {
 
                 if (key == KeyEvent.VK_LEFT) {
-                    System.out.println("iz");
+                    //System.out.println("iz");
                     settings.controles.setIzquierda(true);
                 }
 
                 if (key == KeyEvent.VK_RIGHT) {
-                    System.out.println("de");
+                    //System.out.println("de");
                     settings.controles.setDerecha(true);
                 }
 
                 if (key == KeyEvent.VK_UP || key == KeyEvent.VK_SPACE) {
-                    System.out.println("up");
+                    //System.out.println("up");
                     settings.controles.setRotar(true);
                 }
 
                 if (key == KeyEvent.VK_DOWN) {
-                    System.out.println("do");
+                    //System.out.println("do");
                     settings.controles.setAbajo(true);
                 }
             }

@@ -86,6 +86,13 @@ public class Pieza {
 			if (check_colision(sett)) {
 				this.y --;
 
+				if (this.y <= sett.yInicial) {
+
+					sett.estado.setGameOver(true);
+					sett.estado.setEnJuego(false);
+					sett.setPausa_rejugar(120);
+				}
+
 				sett.setOtraPieza(true);
 				sett.setCheckeando_matriz(true);
 				dejar_rastro(sett);
