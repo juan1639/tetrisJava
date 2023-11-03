@@ -24,6 +24,18 @@ public class Settings {
 		45, 30, 25, 23, 20, 18, 16, 15, 12, 10,
 		10, 8, 7, 5, 5, 3, 3, 3, 2, 2, 1
 	};
+
+	private int[][] goal_lines = {
+		{0, 3}, {0, 7}, {0, 12},
+		{0, 15}, {0, 20}, {0, 24},
+		{0, 32}, {0, 35}, {0, 40},
+		{0, 44}, {0, 47}, {0, 50},
+		{0, 55}, {0, 60}, {0, 70},
+		{0, 75}, {0, 80}, {0, 85},
+		{0, 90}, {0, 95}, {0, 100}
+
+	};
+
 	private int incremento_dificultad;
 	private Boolean checkeando_matriz;
 	private int next_pieza;
@@ -42,6 +54,7 @@ public class Settings {
     public Settings() {
 
     	this.gravedad = gravedad;
+    	this.goal_lines = goal_lines;
     	this.incremento_dificultad = 0;
     	this.checkeando_matriz = false;
     	this.otraPieza = true;
@@ -60,6 +73,14 @@ public class Settings {
 
 	public void setGravedad(int[] gravedad) {
 		this.gravedad = gravedad;
+	}
+
+	public int[][] getGoal_lines() {
+		return this.goal_lines;
+	}
+
+	public void setGoal_lines(int[][] goal_lines) {
+		this.goal_lines = goal_lines;
 	}
 
 	public int getIncremento_dificultad() {

@@ -26,6 +26,7 @@ public class Ventana extends JPanel implements ActionListener {
 
     private Settings settings;
     private Plantilla plantilla;
+    private Colores colores;
 
     private Pieza pieza;
 
@@ -40,7 +41,7 @@ public class Ventana extends JPanel implements ActionListener {
         loadSettings();
 
         addKeyListener(new TAdapter());
-        setBackground(new Color(143, 127, 9));
+        setBackground(new Color(colores.fondo[0], colores.fondo[1], colores.fondo[2]));
         setFocusable(true);
 
         setPreferredSize(new Dimension(settings.resX, settings.resY));
@@ -52,6 +53,7 @@ public class Ventana extends JPanel implements ActionListener {
 
         settings = new Settings();
         plantilla = new Plantilla();
+        colores = new Colores();
 
         System.out.println(plantilla.z[2][0] + "..." + plantilla.pieza.get(2)[2][1]);
     }
@@ -107,7 +109,7 @@ public class Ventana extends JPanel implements ActionListener {
             //verNext = new NextPieza(settings.xNext, settings.yNext, plantilla.pieza.get(nro_rnd));
 
             // ---------------------------------------------------
-            pieza = new Pieza(x, y, plantilla.pieza.get(elegida), col, filas);
+            pieza = new Pieza(x, y, plantilla.pieza.get(elegida), col, filas, colores.piezas[elegida]);
         }
     }
 
@@ -133,7 +135,9 @@ public class Ventana extends JPanel implements ActionListener {
         if (settings.estado.isEnJuego()) {
 
             pieza.dibuja(g, settings.tileX, settings.tileY);
-        }        
+        }
+
+        Toolkit.getDefaultToolkit().sync();        
     }
 
     // private void gameOver(Graphics g) {
@@ -233,6 +237,11 @@ public class Ventana extends JPanel implements ActionListener {
                     settings.estado.setEnJuego(true);
                     comenzar();
                 }
+            }
+
+            if (key == KeyEvent.VK_ESCAPE) {
+                Toolkit.getDefaultToolkit().beep();
+                System.exit(0);
             }
         }
     }

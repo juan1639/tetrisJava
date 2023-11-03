@@ -3,7 +3,7 @@ package tetrisPack;
 import java.awt.Color;
 import java.awt.Graphics;
 
-// ===============================================================
+// ======================================================================
 public class Pieza {
 
 	private int x;
@@ -11,20 +11,24 @@ public class Pieza {
 	private int[][] idPieza;
 	private int columnas;
 	private int filas;
+	private int[] colorPieza;
 	private int rotacion;
 
-	// ---------------------------------------------
-	public Pieza(int x, int y, int[][] idPieza, int col, int filas) {
+	// ------------------------------------------------------------
+	public Pieza(int x, int y, int[][] idPieza, int col, int filas, int[] colorPieza) {
 
 		this.x = x;
 		this.y = y;
 		this.idPieza = idPieza;
 		this.columnas = col;
 		this.filas = filas;
+		this.colorPieza = colorPieza;
 		this.rotacion = 0;
 	}
 
 	public void dibuja(Graphics g, int ancho, int alto) {
+
+		int[] rgb = this.colorPieza;
 
 		int rotacion_idPieza = this.rotacion * 4;
 		int fin = rotacion_idPieza + 4;
@@ -34,8 +38,19 @@ public class Pieza {
 			int x = (this.x + this.idPieza[i][0]) * ancho;
 			int y = (this.y + this.idPieza[i][1]) * alto;
 
-			g.setColor(Color.white);
-            g.drawRect(x, y, ancho, alto);
+			//g.setColor(new Color(rgb[3], rgb[4], rgb[5]));
+			//g.fillRect(x, y, ancho, alto);
+
+			g.setColor(new Color(rgb[0], rgb[1], rgb[2]));
+            int[] polX = {x, x + 30, x + 30, x};
+            int[] polY = {y, y, y + 30, y};
+            g.fillPolygon(polX, polY, 3);
+
+            g.setColor(new Color(rgb[3], rgb[4], rgb[5]));
+            //g.fillRect(x, y, ancho, alto);
+            int[] polX2 = {x, x, x + 30, x};
+            int[] polY2 = {y, y + 30, y + 30, y};
+            g.fillPolygon(polX2, polY2, 3);
 		}
 	}
 
