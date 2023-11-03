@@ -28,6 +28,10 @@ public class Ventana extends JPanel implements ActionListener {
     private Settings settings;
     private Plantilla plantilla;
     private Colores colores;
+
+    private Marcadores lineas;
+    private Marcadores nivel;
+    private Marcadores hi;
     private Gameover gameover;
 
     private Pieza pieza;
@@ -71,6 +75,7 @@ public class Ventana extends JPanel implements ActionListener {
     private void comenzar() {
 
         instanciar_matrizFondo();
+        instanciar_marcadores();
         instanciar_pieza();
         instanciar_gameOver();
 
@@ -116,6 +121,40 @@ public class Ventana extends JPanel implements ActionListener {
         }
     }
 
+    private void instanciar_marcadores() {
+
+        int[] argsInt = {
+            (int) (settings.resY / 12),
+            (int) (settings.resX / 1.8),
+            (int) (settings.resY / 6)
+        };
+
+        String[] argsTxt = {"Lineas: ", "lineas"};
+        int[] rgb = colores.marcadores;
+
+        lineas = new Marcadores(argsInt, argsTxt, new Color(rgb[0], rgb[1], rgb[2]));
+
+        int[] argsInt2 = {
+            (int) (settings.resY / 12),
+            (int) (settings.resX / 1.8),
+            (int) ((settings.resY / 6) * 2)
+        };
+
+        String[] argsTxt2 = {"Nivel: ", "nivel"};
+
+        nivel = new Marcadores(argsInt2, argsTxt2, new Color(rgb[3], rgb[4], rgb[5]));
+
+        int[] argsInt3 = {
+            (int) (settings.resY / 12),
+            (int) (settings.resX / 1.8),
+            (int) ((settings.resY / 6) * 3)
+        };
+
+        String[] argsTxt3 = {"Record: ", "record"};
+
+        hi = new Marcadores(argsInt3, argsTxt3, new Color(rgb[6], rgb[7], rgb[8]));
+    }
+
     private void instanciar_gameOver() {
 
         int[] argsInt = new int[3];
@@ -153,10 +192,16 @@ public class Ventana extends JPanel implements ActionListener {
         if (settings.estado.isEnJuego()) {
 
             pieza.dibuja(g, settings.tileX, settings.tileY);
+            lineas.dibuja(g, settings.getLineas(), this);
+            nivel.dibuja(g, settings.getNivel(), this);
+            hi.dibuja(g, settings.getHiScore(), this);
 
         } else if (settings.estado.isGameOver()) {
 
             //System.out.println("Game Over");
+            lineas.dibuja(g, settings.getLineas(), this);
+            nivel.dibuja(g, settings.getNivel(), this);
+            hi.dibuja(g, settings.getHiScore(), this);
             gameover.dibuja(g, this);
         }
 

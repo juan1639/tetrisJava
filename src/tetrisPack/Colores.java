@@ -15,12 +15,15 @@ public class Colores {
 		{74, 191, 240, 52, 182, 237}
 	};
 
+	public int[] marcadores = {240, 228, 0, 255, 206, 36, 255, 130, 47};
+
 	public int[] fondo = {143, 127, 9};
 
 	// -----------------------------------------------
 	public Colores() {
 
 		this.piezas = piezas;
+		this.marcadores = marcadores;
 		this.fondo = fondo;
 	}
 }
