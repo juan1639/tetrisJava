@@ -37,6 +37,7 @@ public class Ventana extends JPanel implements ActionListener {
     private Pieza pieza;
 
     public int salir_rejugar;
+    public int nextLevel;
 
     // --------------------------------------------------
     public Ventana() {
@@ -233,21 +234,58 @@ public class Ventana extends JPanel implements ActionListener {
         contador --;
         settings.setPausa_rejugar(contador);
 
-        if (settings.getPausa_rejugar() == 0) {
+        if (settings.estado.isGameOver()) {
 
-            salir_rejugar = JOptionPane.showConfirmDialog(this, "Jugar otra partida?");
+            if (settings.getPausa_rejugar() == 0) {
 
-            if (salir_rejugar == JOptionPane.NO_OPTION) {
-                System.out.println("Salir...");
-                Toolkit.getDefaultToolkit().beep();
-                System.exit(0);
+                salir_rejugar = JOptionPane.showConfirmDialog(this, "Jugar otra partida?");
 
-            } else if (salir_rejugar == JOptionPane.YES_OPTION) {
-                System.out.println("Jugar otra partida...");
+                if (salir_rejugar == JOptionPane.NO_OPTION) {
+                    System.out.println("Salir...");
+                    Toolkit.getDefaultToolkit().beep();
+                    System.exit(0);
 
-            } else if (salir_rejugar == JOptionPane.CANCEL_OPTION) {
-                System.out.println("Cancelar...");
+                } else if (salir_rejugar == JOptionPane.YES_OPTION) {
+                    System.out.println("Jugar otra partida...");
+
+                } else if (salir_rejugar == JOptionPane.CANCEL_OPTION) {
+                    System.out.println("Cancelar...");
+                }
             }
+
+        } else if (settings.estado.isEntreNiveles()) {
+
+            if (settings.getPausa_rejugar() == 0) {
+
+                nextLevel = JOptionPane.showConfirmDialog(this, "continuar siguiente nivel...", "NIVEL SUPERADO", JOptionPane.CLOSED_OPTION);
+
+                if (nextLevel == JOptionPane.OK_OPTION) {
+
+                    settings.estado.setEnJuego(true);
+                    settings.estado.setEntreNiveles(false);
+                    settings.setPausa_rejugar(120);
+                }
+            }
+        }
+    }
+
+    private void pausar_entreNiveles() {
+
+        int lineas = settings.getLineas();
+        int[][] superado = settings.getGoal_lines();
+        int nivel = settings.getNivel();
+
+        if (lineas >= superado[nivel][1] && lineas < superado[nivel][1] + 4 && superado[nivel][0] == 0) {
+
+            settings.estado.setEnJuego(false);
+            settings.estado.setEntreNiveles(true);
+
+            superado[nivel][0] = 9;
+            settings.setGoal_lines(superado);
+
+            nivel ++;
+            settings.setNivel(nivel);
+            System.out.println("superado:" + nivel + settings.getNivel());
         }
     }
 
@@ -256,6 +294,8 @@ public class Ventana extends JPanel implements ActionListener {
 
         if (settings.estado.isEnJuego()) {
 
+            pausar_entreNiveles();
+
             Fondo.check_lineDone(settings);
             gravedad_piezas();
             
@@ -263,6 +303,10 @@ public class Ventana extends JPanel implements ActionListener {
             pieza.actualiza(settings);
 
         } else if (settings.estado.isGameOver()) {
+
+            pausa_optionPane();
+
+        } else if (settings.estado.isEntreNiveles()) {
 
             pausa_optionPane();
         }
