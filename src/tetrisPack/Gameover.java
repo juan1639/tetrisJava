@@ -44,4 +44,28 @@ public class Gameover {
 
 		g.drawString(msg, (resX - metr.stringWidth(msg)) / 2, resY / 2);
 	}
+
+	public static int[] argsInt_instanciaGameOver(Settings sett) {
+
+		int[] argsInt = new int[6];
+
+        argsInt[0] = (int) (sett.resY / 9);
+        argsInt[1] = sett.resX;
+        argsInt[2] = sett.resY;
+        argsInt[3] = Colores.gameover[0];
+        argsInt[4] = Colores.gameover[1];
+        argsInt[5] = Colores.gameover[2];
+
+        return argsInt;
+	}
+
+	public static String[] argsString_instanciaGameOver() {
+
+		String[] argsTxt = new String[2];
+
+		argsTxt[0] = "Game Over";
+        argsTxt[1] = "gameover";
+
+        return argsTxt;
+	}
 }

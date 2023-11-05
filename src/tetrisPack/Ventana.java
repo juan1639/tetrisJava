@@ -115,66 +115,22 @@ public class Ventana extends JPanel implements ActionListener {
 
     private void instanciar_marcadores() {
 
-        int[] argsInt = {
-            (int) (settings.resY / 12),
-            (int) (settings.resX / 1.8),
-            (int) (settings.resY / 6)
-        };
+        int[] argsInt = Marcadores.argsInt_instanciaMarcadores(settings);
+        String[] argsTxt = Marcadores.argsString_instanciaMarcadores();
 
-        String[] argsTxt = {"Lineas: ", "lineas"};
         int[] rgb = Colores.marcadores;
 
-        lineas = new Marcadores(argsInt, argsTxt, new Color(rgb[0], rgb[1], rgb[2]));
-
-        int[] argsInt2 = {
-            (int) (settings.resY / 12),
-            (int) (settings.resX / 1.8),
-            (int) ((settings.resY / 6) * 2)
-        };
-
-        String[] argsTxt2 = {"Nivel: ", "nivel"};
-
-        nivel = new Marcadores(argsInt2, argsTxt2, new Color(rgb[3], rgb[4], rgb[5]));
-
-        int[] argsInt3 = {
-            (int) (settings.resY / 12),
-            (int) (settings.resX / 1.8),
-            (int) ((settings.resY / 6) * 3)
-        };
-
-        String[] argsTxt3 = {"Record: ", "record"};
-
-        hi = new Marcadores(argsInt3, argsTxt3, new Color(rgb[6], rgb[7], rgb[8]));
+        lineas = new Marcadores(0, argsInt, argsTxt, new Color(rgb[0], rgb[1], rgb[2]));
+        nivel = new Marcadores(1, argsInt, argsTxt, new Color(rgb[3], rgb[4], rgb[5]));
+        hi = new Marcadores(2, argsInt, argsTxt, new Color(rgb[6], rgb[7], rgb[8]));
     }
 
     private void instanciar_gameOver() {
 
-        int[] argsInt = new int[6];
-        String[] argsTxt = new String[2];
-
-        argsInt[0] = (int) (settings.resY / 9);
-        argsInt[1] = settings.resX;
-        argsInt[2] = settings.resY;
-        argsInt[3] = Colores.gameover[0];
-        argsInt[4] = Colores.gameover[1];
-        argsInt[5] = Colores.gameover[2];
-
-        argsTxt[0] = "Game Over";
-        argsTxt[1] = "gameover";
+        int[] argsInt = Gameover.argsInt_instanciaGameOver(settings);
+        String[] argsTxt = Gameover.argsString_instanciaGameOver();
 
         gameover = new Gameover(argsInt, argsTxt);
-    }
-
-    private int[] calculaAreaMarcadoresCoord() {
-
-        int [] areaCoord = {
-            (int) (settings.resX / 2),
-            0,
-            (int) (settings.resX),
-            (int) (settings.resY),            
-        };
-
-        return areaCoord;
     }
 
     @Override
@@ -196,7 +152,7 @@ public class Ventana extends JPanel implements ActionListener {
             }
         }
 
-        Marcadores.area_marcadores(g, calculaAreaMarcadoresCoord());
+        Marcadores.area_marcadores(g, Marcadores.calculaAreaMarcadoresCoord(settings));
 
         if (settings.estado.isEnJuego() || settings.estado.isEntreNiveles()) {
 
@@ -216,21 +172,6 @@ public class Ventana extends JPanel implements ActionListener {
         }
 
         Toolkit.getDefaultToolkit().sync();        
-    }
-
-    private void gravedad_piezas() {
-
-        int[] gravedad = settings.getGravedad();
-        int nivel = settings.getNivel();
-        int contador = settings.getIncremento_dificultad();
-        contador ++;
-
-        if (contador >= gravedad[nivel]) {
-            contador = 0;
-            settings.controles.setAbajo(true);
-        }
-
-        settings.setIncremento_dificultad(contador);
     }
 
     private void pausa_optionPane() {
@@ -278,35 +219,15 @@ public class Ventana extends JPanel implements ActionListener {
         }
     }
 
-    private void pausar_entreNiveles() {
-
-        int lineas = settings.getLineas();
-        int[][] superado = settings.getGoal_lines();
-        int nivel = settings.getNivel();
-
-        if (lineas >= superado[nivel][1] && lineas < superado[nivel][1] + 4 && superado[nivel][0] == 0) {
-
-            settings.estado.setEnJuego(false);
-            settings.estado.setEntreNiveles(true);
-
-            superado[nivel][0] = 9;
-            settings.setGoal_lines(superado);
-
-            nivel ++;
-            settings.setNivel(nivel);
-            System.out.println("superado:" + nivel + settings.getNivel());
-        }
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (settings.estado.isEnJuego()) {
 
-            pausar_entreNiveles();
+            Pausaniveles.pausar_entreNiveles(settings);
 
             Fondo.check_lineDone(settings);
-            gravedad_piezas();
+            Pieza.gravedad_piezas(settings);
             
             instanciar_pieza();
             pieza.actualiza(settings);

@@ -159,6 +159,21 @@ public class Pieza {
 		}
 	}
 
+	public static void gravedad_piezas(Settings sett) {
+
+		int[] gravedad = sett.getGravedad();
+        int nivel = sett.getNivel();
+        int contador = sett.getIncremento_dificultad();
+        contador ++;
+
+        if (contador >= gravedad[nivel]) {
+            contador = 0;
+            sett.controles.setAbajo(true);
+        }
+
+        sett.setIncremento_dificultad(contador);
+	}
+
 	// Getters & Setters ----------------------
 	public int getX() {
 		return this.x;

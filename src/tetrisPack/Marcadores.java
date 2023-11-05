@@ -12,13 +12,15 @@ public class Marcadores {
 
 	private static int[] colorAreaMarcadores = {115, 103, 9, 180, 150, 15}; 
 
+	private int id;
 	private int[] argsInt;
 	private String[] argsTxt;
 	private Color color;
 
 	// --------------------------------------------------------------
-	public Marcadores(int[] argsInt, String[] argsTxt, Color color) {
+	public Marcadores(int id, int[] argsInt, String[] argsTxt, Color color) {
 
+		this.id = id;
 		this.argsInt = argsInt;
 		this.argsTxt = argsTxt;
 		this.color = color;
@@ -26,13 +28,19 @@ public class Marcadores {
 
 	public void dibuja(Graphics g, int valor, JPanel panel) {
 
-		int size = this.argsInt[0];
-		int resX = this.argsInt[1];
-		int resY = this.argsInt[2];
+		int i = this.id * 3;
 
-		String msg = this.argsTxt[0] + valor;
-		String idTxt = this.argsTxt[1];
+		int size = this.argsInt[i];
+		int resX = this.argsInt[i + 1];
+		int resY = this.argsInt[i + 2];
 
+		// ----------------------------------
+		i = this.id * 2;
+
+		String msg = this.argsTxt[i] + valor;
+		String idTxt = this.argsTxt[i + 1];
+
+		// ----------------------------------
 		Font fuente = new Font("Helvetica", Font.BOLD, size);
 		FontMetrics metr = panel.getFontMetrics(fuente);
 
@@ -57,5 +65,45 @@ public class Marcadores {
 		g.fillRoundRect(x, y, ancho, alto, 16, 16);
 		g.setColor(new Color(rgb[3], rgb[4], rgb[5]));
 		g.drawRoundRect(x, y, ancho, alto, 16, 16);
+	}
+
+	public static int[] argsInt_instanciaMarcadores(Settings sett) {
+
+		int[] argsInt = {
+            (int) (sett.resY / 12),
+            (int) (sett.resX / 1.8),
+            (int) (sett.resY / 6),
+            (int) (sett.resY / 12),
+            (int) (sett.resX / 1.8),
+            (int) ((sett.resY / 6) * 2),
+            (int) (sett.resY / 12),
+            (int) (sett.resX / 1.8),
+            (int) ((sett.resY / 6) * 3)
+        };
+
+        return argsInt;
+	}
+
+	public static String[] argsString_instanciaMarcadores() {
+
+		String[] argsTxt = {
+        	"Lineas: ", "lineas",
+        	"Nivel: ", "nivel",
+        	"Record: ", "record"
+        };
+
+        return argsTxt;
+	}
+
+	public static int[] calculaAreaMarcadoresCoord(Settings sett) {
+
+		int [] areaCoord = {
+            (int) (sett.resX / 2),
+            0,
+            (int) (sett.resX),
+            (int) (sett.resY),            
+        };
+
+        return areaCoord;
 	}
 }

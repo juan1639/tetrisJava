@@ -20,13 +20,4 @@ public class Colores {
 	public static int[] gameover = {255, 180, 47};
 
 	public static int[] fondo = {143, 127, 9};
-
-	// -----------------------------------------------
-	// public Colores() {
-
-	// 	this.piezas = piezas;
-	// 	this.marcadores = marcadores;
-	// 	this.gameover = gameover;
-	// 	this.fondo = fondo;
-	// }
 }
