@@ -27,7 +27,6 @@ public class Ventana extends JPanel implements ActionListener {
 
     private Settings settings;
     private Plantilla plantilla;
-    private Colores colores;
 
     private Marcadores lineas;
     private Marcadores nivel;
@@ -51,7 +50,7 @@ public class Ventana extends JPanel implements ActionListener {
         loadSettings();
 
         addKeyListener(new TAdapter());
-        setBackground(new Color(colores.fondo[0], colores.fondo[1], colores.fondo[2]));
+        setBackground(new Color(Colores.fondo[0], Colores.fondo[1], Colores.fondo[2]));
         setFocusable(true);
 
         setPreferredSize(new Dimension(settings.resX, settings.resY));
@@ -63,15 +62,6 @@ public class Ventana extends JPanel implements ActionListener {
 
         settings = new Settings();
         plantilla = new Plantilla();
-        colores = new Colores();
-    }
-
-    private void loadImages() {
-
-        // //BufferedImage manzana = ImageIO.read(new File(path, "bloque_azul.png"));
-
-        // ImageIcon iia = new ImageIcon("appleSnake.png");
-        // manzana = iia.getImage();
     }
 
     private void comenzar() {
@@ -116,10 +106,10 @@ public class Ventana extends JPanel implements ActionListener {
             // ---------------------------------------------------
             nro_rnd = (int) (Math.random() * 7);
             settings.setNext_pieza(nro_rnd);
-            verNextPieza = new Nextpieza(settings.xNext, settings.yNext, plantilla.pieza.get(nro_rnd), colores.piezas[nro_rnd]);
+            verNextPieza = new Nextpieza(settings.xNext, settings.yNext, plantilla.getPieza().get(nro_rnd), Colores.piezas[nro_rnd]);
 
             // ---------------------------------------------------
-            pieza = new Pieza(x, y, plantilla.pieza.get(elegida), col, filas, colores.piezas[elegida]);
+            pieza = new Pieza(x, y, plantilla.getPieza().get(elegida), col, filas, Colores.piezas[elegida]);
         }
     }
 
@@ -132,7 +122,7 @@ public class Ventana extends JPanel implements ActionListener {
         };
 
         String[] argsTxt = {"Lineas: ", "lineas"};
-        int[] rgb = colores.marcadores;
+        int[] rgb = Colores.marcadores;
 
         lineas = new Marcadores(argsInt, argsTxt, new Color(rgb[0], rgb[1], rgb[2]));
 
@@ -165,9 +155,9 @@ public class Ventana extends JPanel implements ActionListener {
         argsInt[0] = (int) (settings.resY / 9);
         argsInt[1] = settings.resX;
         argsInt[2] = settings.resY;
-        argsInt[3] = colores.gameover[0];
-        argsInt[4] = colores.gameover[1];
-        argsInt[5] = colores.gameover[2];
+        argsInt[3] = Colores.gameover[0];
+        argsInt[4] = Colores.gameover[1];
+        argsInt[5] = Colores.gameover[2];
 
         argsTxt[0] = "Game Over";
         argsTxt[1] = "gameover";

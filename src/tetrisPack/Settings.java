@@ -3,6 +3,9 @@ package tetrisPack;
 // ========================================================================
 public class Settings {
 
+	// ----------------------------------------------------
+	// Constantes
+	// ----------------------------------------------------
     public final int FPS = 60;
 
     public final int tileX = 30;
@@ -21,6 +24,9 @@ public class Settings {
 
 	public final int tiempo_infoLineas = 2000;
 
+	// ----------------------------------------------------
+	// Variables
+	// ----------------------------------------------------
 	private int[] gravedad = {
 		45, 30, 25, 23, 20, 18, 16, 15, 12, 10,
 		10, 8, 7, 5, 5, 3, 3, 3, 2, 2, 1
@@ -53,7 +59,7 @@ public class Settings {
 	public Controles controles;
 	public Estado estado;
 
-	// ------------------------------------------
+	// -------------------------------------------
     public Settings() {
 
     	this.gravedad = gravedad;

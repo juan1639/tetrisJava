@@ -54,7 +54,7 @@ public class Plantilla {
 		{0, 0}, {0, -1}, {0, -2}, {1, -1}
 	};
 	
-	public ArrayList<int[][]> pieza = new ArrayList<>();
+	private ArrayList<int[][]> pieza = new ArrayList<>();
 
 	// ----------------------------------------
 	public Plantilla() {
@@ -75,5 +75,10 @@ public class Plantilla {
 		this.pieza.add(this.o);
 		this.pieza.add(this.i);
 		this.pieza.add(this.t);
+	}
+
+	// Getters & Setters -------------------------
+    public ArrayList<int[][]> getPieza() {
+		return this.pieza;
 	}
 }
