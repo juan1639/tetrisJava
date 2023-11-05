@@ -16,8 +16,7 @@ public class Colores {
 	};
 
 	public static int[] marcadores = {240, 228, 0, 255, 206, 36, 255, 130, 47};
-
 	public static int[] gameover = {255, 180, 47};
-
+	public static int[] titulo = {155, 245, 9};
 	public static int[] fondo = {143, 127, 9};
 }

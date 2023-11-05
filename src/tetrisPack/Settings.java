@@ -53,6 +53,7 @@ public class Settings {
 	private int hiScore;
 
 	private int pausa_rejugar;
+	private Boolean fireWorks = false;
 
 	public Fondo[][] tileFondo = new Fondo[filas][columnas];
 
@@ -72,6 +73,7 @@ public class Settings {
     	this.nivel = 1;
     	this.hiScore = 27;
     	this.pausa_rejugar = 99;
+    	this.fireWorks = false;
     	this.controles = new Controles();
     	this.estado = new Estado();
     }
@@ -157,6 +159,14 @@ public class Settings {
 		this.pausa_rejugar = pausa_rejugar;
 	}
 
+	public Boolean isFireWorks() {
+		return this.fireWorks;
+	}
+
+	public void setFireWorks(Boolean fireWorks) {
+		this.fireWorks = fireWorks;
+	}
+
     // ========================================================
     public class Controles {
 
@@ -209,8 +219,8 @@ public class Settings {
     	private Boolean menuPrincipal, enJuego, entreNiveles, gameOver;
 
     	public Estado() {
-    		this.menuPrincipal = false;
-    		this.enJuego = true;
+    		this.menuPrincipal = true;
+    		this.enJuego = false;
     		this.entreNiveles = false;
     		this.gameOver = false;
     	}

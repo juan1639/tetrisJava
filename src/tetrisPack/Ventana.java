@@ -31,11 +31,16 @@ public class Ventana extends JPanel implements ActionListener {
     private Marcadores lineas;
     private Marcadores nivel;
     private Marcadores hi;
+
     private Gameover gameover;
+    private Gameover titulo;
 
     private Pieza pieza;
     private Nextpieza verNextPieza;
 
+    private Fireworks chispa;
+
+    public int newGame;
     public int salir_rejugar;
     public int nextLevel;
 
@@ -69,6 +74,7 @@ public class Ventana extends JPanel implements ActionListener {
         instanciar_matrizFondo();
         instanciar_marcadores();
         instanciar_pieza();
+        instanciar_tituloPresentacion();
         instanciar_gameOver();
 
         timer = new Timer((int) (1000 / settings.FPS), this);
@@ -133,6 +139,26 @@ public class Ventana extends JPanel implements ActionListener {
         gameover = new Gameover(argsInt, argsTxt);
     }
 
+    private void instanciar_tituloPresentacion() {
+
+        int[] argsInt = Gameover.argsInt_instanciaTitulo(settings);
+        String[] argsTxt = Gameover.argsString_instanciaTitulo();
+
+        titulo = new Gameover(argsInt, argsTxt);
+    }
+
+    private void instanciar_fireWorks() {
+
+        if (!settings.isFireWorks()) {
+            return;
+        }
+
+        double[] arg = Pausaniveles.argsDouble_instanciarFireWorks(settings);
+        chispa = new Fireworks(arg[0], arg[1], arg[2] / 15, arg[3] / 10);
+
+        settings.setFireWorks(false);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -154,7 +180,7 @@ public class Ventana extends JPanel implements ActionListener {
 
         Marcadores.area_marcadores(g, Marcadores.calculaAreaMarcadoresCoord(settings));
 
-        if (settings.estado.isEnJuego() || settings.estado.isEntreNiveles()) {
+        if (settings.estado.isEnJuego()) {
 
             pieza.dibuja(g, settings.tileX, settings.tileY);
             lineas.dibuja(g, settings.getLineas(), this);
@@ -169,6 +195,22 @@ public class Ventana extends JPanel implements ActionListener {
             nivel.dibuja(g, settings.getNivel(), this);
             hi.dibuja(g, settings.getHiScore(), this);
             gameover.dibuja(g, this);
+
+        } else if (settings.estado.isMenuPrincipal()) {
+
+            lineas.dibuja(g, settings.getLineas(), this);
+            nivel.dibuja(g, settings.getNivel(), this);
+            hi.dibuja(g, settings.getHiScore(), this);
+            titulo.dibuja(g, this);
+
+        } else if (settings.estado.isEntreNiveles()) {
+
+            pieza.dibuja(g, settings.tileX, settings.tileY);
+            lineas.dibuja(g, settings.getLineas(), this);
+            nivel.dibuja(g, settings.getNivel(), this);
+            hi.dibuja(g, settings.getHiScore(), this);
+            verNextPieza.dibuja(g, settings.tileX, settings.tileY);
+            chispa.dibuja(g);
         }
 
         Toolkit.getDefaultToolkit().sync();        
@@ -216,6 +258,20 @@ public class Ventana extends JPanel implements ActionListener {
                     settings.setPausa_rejugar(99);
                 }
             }
+
+        } else if (settings.estado.isMenuPrincipal()) {
+
+            if (settings.getPausa_rejugar() == 0) {
+
+                newGame = JOptionPane.showConfirmDialog(this, "Comenzar nueva partida...", "COMENZAR", JOptionPane.CLOSED_OPTION);
+
+                if (newGame == JOptionPane.OK_OPTION) {
+
+                    settings.estado.setEnJuego(true);
+                    settings.estado.setMenuPrincipal(false);
+                    settings.setPausa_rejugar(99);
+                }
+            }
         }
     }
 
@@ -225,6 +281,7 @@ public class Ventana extends JPanel implements ActionListener {
         if (settings.estado.isEnJuego()) {
 
             Pausaniveles.pausar_entreNiveles(settings);
+            instanciar_fireWorks();
 
             Fondo.check_lineDone(settings);
             Pieza.gravedad_piezas(settings);
@@ -237,6 +294,10 @@ public class Ventana extends JPanel implements ActionListener {
             pausa_optionPane();
 
         } else if (settings.estado.isEntreNiveles()) {
+
+            pausa_optionPane();
+
+        } else if (settings.estado.isMenuPrincipal()) {
 
             pausa_optionPane();
         }
