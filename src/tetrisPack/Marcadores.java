@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 // ====================================================================
 public class Marcadores {
 
+	private static int[] colorAreaMarcadores = {115, 103, 9, 180, 150, 15}; 
+
 	private int[] argsInt;
 	private String[] argsTxt;
 	private Color color;
@@ -37,5 +39,23 @@ public class Marcadores {
 		g.setFont(fuente);
 		g.setColor(this.color);
 		g.drawString(msg, resX, resY);
+	}
+
+	public static void area_marcadores(Graphics g, int[] argsCoord) {
+
+		int margenAreaX = (int) (argsCoord[2] / 70);
+		int margenAreaY = (int) (argsCoord[3] / 40);
+
+		int x = argsCoord[0] + margenAreaX;
+		int y = argsCoord[1] + margenAreaY;
+		int ancho = (int) (argsCoord[2] / 2 - margenAreaX * 2);
+		int alto = (int) (argsCoord[3] / 1.9);
+
+		int[] rgb = colorAreaMarcadores;
+
+		g.setColor(new Color(rgb[0], rgb[1], rgb[2]));
+		g.fillRoundRect(x, y, ancho, alto, 16, 16);
+		g.setColor(new Color(rgb[3], rgb[4], rgb[5]));
+		g.drawRoundRect(x, y, ancho, alto, 16, 16);
 	}
 }

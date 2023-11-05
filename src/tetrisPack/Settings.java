@@ -15,7 +15,7 @@ public class Settings {
 
     public final int xInicial = 7;
 	public final int yInicial = 2;
-	public final int xNext = 17;
+	public final int xNext = 19;
 	public final int yNext = 16;
 	public final String piezas = "zsljoit";
 
@@ -65,7 +65,7 @@ public class Settings {
     	this.lineas = 0;
     	this.nivel = 1;
     	this.hiScore = 27;
-    	this.pausa_rejugar = 200;
+    	this.pausa_rejugar = 99;
     	this.controles = new Controles();
     	this.estado = new Estado();
     }

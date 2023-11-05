@@ -35,6 +35,7 @@ public class Ventana extends JPanel implements ActionListener {
     private Gameover gameover;
 
     private Pieza pieza;
+    private Nextpieza verNextPieza;
 
     public int salir_rejugar;
     public int nextLevel;
@@ -115,7 +116,7 @@ public class Ventana extends JPanel implements ActionListener {
             // ---------------------------------------------------
             nro_rnd = (int) (Math.random() * 7);
             settings.setNext_pieza(nro_rnd);
-            //verNext = new NextPieza(settings.xNext, settings.yNext, plantilla.pieza.get(nro_rnd));
+            verNextPieza = new Nextpieza(settings.xNext, settings.yNext, plantilla.pieza.get(nro_rnd), colores.piezas[nro_rnd]);
 
             // ---------------------------------------------------
             pieza = new Pieza(x, y, plantilla.pieza.get(elegida), col, filas, colores.piezas[elegida]);
@@ -158,17 +159,32 @@ public class Ventana extends JPanel implements ActionListener {
 
     private void instanciar_gameOver() {
 
-        int[] argsInt = new int[3];
+        int[] argsInt = new int[6];
         String[] argsTxt = new String[2];
 
         argsInt[0] = (int) (settings.resY / 9);
         argsInt[1] = settings.resX;
         argsInt[2] = settings.resY;
+        argsInt[3] = colores.gameover[0];
+        argsInt[4] = colores.gameover[1];
+        argsInt[5] = colores.gameover[2];
 
         argsTxt[0] = "Game Over";
         argsTxt[1] = "gameover";
 
-        gameover = new Gameover(argsInt, argsTxt, Color.yellow);
+        gameover = new Gameover(argsInt, argsTxt);
+    }
+
+    private int[] calculaAreaMarcadoresCoord() {
+
+        int [] areaCoord = {
+            (int) (settings.resX / 2),
+            0,
+            (int) (settings.resX),
+            (int) (settings.resY),            
+        };
+
+        return areaCoord;
     }
 
     @Override
@@ -190,12 +206,15 @@ public class Ventana extends JPanel implements ActionListener {
             }
         }
 
-        if (settings.estado.isEnJuego()) {
+        Marcadores.area_marcadores(g, calculaAreaMarcadoresCoord());
+
+        if (settings.estado.isEnJuego() || settings.estado.isEntreNiveles()) {
 
             pieza.dibuja(g, settings.tileX, settings.tileY);
             lineas.dibuja(g, settings.getLineas(), this);
             nivel.dibuja(g, settings.getNivel(), this);
             hi.dibuja(g, settings.getHiScore(), this);
+            verNextPieza.dibuja(g, settings.tileX, settings.tileY);
 
         } else if (settings.estado.isGameOver()) {
 
@@ -263,7 +282,7 @@ public class Ventana extends JPanel implements ActionListener {
 
                     settings.estado.setEnJuego(true);
                     settings.estado.setEntreNiveles(false);
-                    settings.setPausa_rejugar(120);
+                    settings.setPausa_rejugar(99);
                 }
             }
         }
@@ -333,7 +352,7 @@ public class Ventana extends JPanel implements ActionListener {
                     settings.controles.setDerecha(true);
                 }
 
-                if (key == KeyEvent.VK_UP || key == KeyEvent.VK_SPACE) {
+                if (key == KeyEvent.VK_CONTROL || key == KeyEvent.VK_SPACE) {
                     //System.out.println("up");
                     settings.controles.setRotar(true);
                 }
@@ -346,11 +365,11 @@ public class Ventana extends JPanel implements ActionListener {
 
             if (!settings.estado.isEnJuego()) {
 
-                if (key == KeyEvent.VK_SPACE) {
-                    System.out.println("Rejugar");
-                    settings.estado.setEnJuego(true);
-                    comenzar();
-                }
+                // if (key == KeyEvent.VK_ENTER) {
+                //     System.out.println("Rejugar");
+                //     settings.estado.setEnJuego(true);
+                //     comenzar();
+                // }
             }
 
             if (key == KeyEvent.VK_ESCAPE) {

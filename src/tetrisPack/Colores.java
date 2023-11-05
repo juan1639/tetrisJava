@@ -17,6 +17,8 @@ public class Colores {
 
 	public int[] marcadores = {240, 228, 0, 255, 206, 36, 255, 130, 47};
 
+	public int[] gameover = {255, 180, 47};
+
 	public int[] fondo = {143, 127, 9};
 
 	// -----------------------------------------------
@@ -24,6 +26,7 @@ public class Colores {
 
 		this.piezas = piezas;
 		this.marcadores = marcadores;
+		this.gameover = gameover;
 		this.fondo = fondo;
 	}
 }

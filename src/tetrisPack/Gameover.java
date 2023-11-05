@@ -15,11 +15,10 @@ public class Gameover {
 	private Color color;
 
 	// -------------------------------------------------------------
-	public Gameover(int[] argsInt, String[] argsTxt, Color color) {
+	public Gameover(int[] argsInt, String[] argsTxt) {
 
 		this.argsInt = argsInt;
 		this.argsTxt = argsTxt;
-		this.color = color;
 	}
 
 	public void dibuja(Graphics g, JPanel panel) {
@@ -28,6 +27,8 @@ public class Gameover {
 		int resX = this.argsInt[1];
 		int resY = this.argsInt[2];
 
+		int[] rgb = {this.argsInt[3], this.argsInt[4], this.argsInt[5]};
+
 		String msg = this.argsTxt[0];
 		String idTxt = this.argsTxt[1];
 
@@ -35,7 +36,7 @@ public class Gameover {
 		FontMetrics metr = panel.getFontMetrics(fuente);
 
 		g.setFont(fuente);
-		g.setColor(this.color);
+		g.setColor(new Color(rgb[0], rgb[1], rgb[2]));
 
 		if (idTxt == "gameover") {
 			resX /= 2;
