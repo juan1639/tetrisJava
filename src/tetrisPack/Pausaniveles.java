@@ -29,13 +29,16 @@ public class Pausaniveles {
 		int rangoX = (int) (sett.resX / 3) + 20;
         int rangoY = (int) (sett.resY / 2) + 20;
 
+        int rangoVelX = 49;
+        int rangoVelY = 49;
+
         double x = (int) (Math.random() * rangoX);
         double y = (int) (Math.random() * rangoY);
 
-        double velX = (int) (Math.random() * 90);
-        double velY = (int) (Math.random() * 90);
+        double velX = (int) (Math.random() * (rangoVelX * 2));
+        double velY = (int) (Math.random() * (rangoVelY * 2));
 
-        double[] argsDouble = {x, y, velX, velY};
+        double[] argsDouble = {x, y, velX - rangoVelX, velY - rangoVelY};
 
         return argsDouble;
 	}

@@ -38,7 +38,7 @@ public class Ventana extends JPanel implements ActionListener {
     private Pieza pieza;
     private Nextpieza verNextPieza;
 
-    private Fireworks chispa;
+    private Fireworks[] chispa = new Fireworks[50];
 
     public int newGame;
     public int salir_rejugar;
@@ -153,8 +153,13 @@ public class Ventana extends JPanel implements ActionListener {
             return;
         }
 
-        double[] arg = Pausaniveles.argsDouble_instanciarFireWorks(settings);
-        chispa = new Fireworks(arg[0], arg[1], arg[2] / 15, arg[3] / 10);
+        double[] argFix = Pausaniveles.argsDouble_instanciarFireWorks(settings);
+
+        for (int i = 0; i < settings.nro_chispas; i ++) {
+
+            double[] arg = Pausaniveles.argsDouble_instanciarFireWorks(settings);
+            chispa[i] = new Fireworks(argFix[0], argFix[1], arg[2] / 15, arg[3] / 10);
+        }
 
         settings.setFireWorks(false);
     }
@@ -210,7 +215,10 @@ public class Ventana extends JPanel implements ActionListener {
             nivel.dibuja(g, settings.getNivel(), this);
             hi.dibuja(g, settings.getHiScore(), this);
             verNextPieza.dibuja(g, settings.tileX, settings.tileY);
-            chispa.dibuja(g);
+
+            for (int i = 0; i < settings.nro_chispas; i ++) {
+                chispa[i].dibuja(g, settings);
+            }
         }
 
         Toolkit.getDefaultToolkit().sync();        
@@ -295,6 +303,7 @@ public class Ventana extends JPanel implements ActionListener {
 
         } else if (settings.estado.isEntreNiveles()) {
 
+            instanciar_fireWorks();
             pausa_optionPane();
 
         } else if (settings.estado.isMenuPrincipal()) {

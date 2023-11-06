@@ -22,6 +22,7 @@ public class Settings {
 	public final int yNext = 16;
 	public final String piezas = "zsljoit";
 
+	public final int nro_chispas = 50;
 	public final int tiempo_infoLineas = 2000;
 
 	// ----------------------------------------------------
