@@ -20,7 +20,6 @@ import javax.swing.Timer;
 
 import java.util.ArrayList;
 
-// ===============================================================
 public class Ventana extends JPanel implements ActionListener {
 
     private Timer timer;
@@ -44,7 +43,6 @@ public class Ventana extends JPanel implements ActionListener {
     public int salir_rejugar;
     public int nextLevel;
 
-    // --------------------------------------------------
     public Ventana() {
         
         inicializa();
@@ -241,6 +239,7 @@ public class Ventana extends JPanel implements ActionListener {
                 salir_rejugar = JOptionPane.showConfirmDialog(this, "Jugar otra partida?");
 
                 if (salir_rejugar == JOptionPane.NO_OPTION) {
+                	
                     System.out.println("Salir...");
                     Toolkit.getDefaultToolkit().beep();
                     System.exit(0);

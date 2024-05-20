@@ -3,7 +3,6 @@ package tetrisPack;
 import java.awt.Color;
 import java.awt.Graphics;
 
-// ======================================================================
 public class Fireworks {
 
 	private double x;
@@ -12,7 +11,6 @@ public class Fireworks {
 	private double velY;
 	private int duracion;
 
-	// ------------------------------------------------------------
 	public Fireworks(double x, double y, double velX, double velY) {
 
 		this.x = x;

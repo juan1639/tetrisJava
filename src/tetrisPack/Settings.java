@@ -1,11 +1,8 @@
 package tetrisPack;
 
-// ========================================================================
 public class Settings {
 
-	// ----------------------------------------------------
 	// Constantes
-	// ----------------------------------------------------
     public final int FPS = 60;
 
     public final int tileX = 30;
@@ -25,9 +22,7 @@ public class Settings {
 	public final int nro_chispas = 50;
 	public final int tiempo_infoLineas = 2000;
 
-	// ----------------------------------------------------
 	// Variables
-	// ----------------------------------------------------
 	private int[] gravedad = {
 		45, 30, 25, 23, 20, 18, 16, 15, 12, 10,
 		10, 8, 7, 5, 5, 3, 3, 3, 2, 2, 1
@@ -60,8 +55,7 @@ public class Settings {
 
 	public Controles controles;
 	public Estado estado;
-
-	// -------------------------------------------
+	
     public Settings() {
 
     	this.gravedad = gravedad;
@@ -79,7 +73,7 @@ public class Settings {
     	this.estado = new Estado();
     }
 
-    // Getters & Setters -------------------------
+    // Getters & Setters
     public int[] getGravedad() {
 		return this.gravedad;
 	}
@@ -174,13 +168,14 @@ public class Settings {
     	private Boolean izquierda, derecha, abajo, rotar;
 
     	public Controles() {
+    		
     		this.izquierda = false;
     		this.derecha = false;
     		this.abajo = false;
     		this.rotar = false;
     	}
 
-    	// Getters & Setters ---------------------------------
+    	// Getters & Setters
 		public boolean isIzquierda() {
 			return this.izquierda;
 		}
@@ -220,13 +215,14 @@ public class Settings {
     	private Boolean menuPrincipal, enJuego, entreNiveles, gameOver;
 
     	public Estado() {
+    		
     		this.menuPrincipal = true;
     		this.enJuego = false;
     		this.entreNiveles = false;
     		this.gameOver = false;
     	}
 
-    	// Getters & Setters ---------------------------------
+    	// Getters & Setters
 		public boolean isMenuPrincipal() {
 			return this.menuPrincipal;
 		}

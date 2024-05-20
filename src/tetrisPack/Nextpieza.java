@@ -3,7 +3,6 @@ package tetrisPack;
 import java.awt.Color;
 import java.awt.Graphics;
 
-// ======================================================================
 public class Nextpieza {
 
 	private int[] colorAreaNextPieza = {115, 103, 9, 220, 200, 15};
@@ -13,7 +12,6 @@ public class Nextpieza {
 	private int[][] idPieza;
 	private int[] colorPieza;
 
-	// ------------------------------------------------------------
 	public Nextpieza(int x, int y, int[][] idPieza, int[] colorPieza) {
 
 		this.x = x;

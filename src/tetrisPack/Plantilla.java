@@ -2,7 +2,6 @@ package tetrisPack;
 
 import java.util.ArrayList;
 
-// ========================================================================
 public class Plantilla {
 
 	private int[][] z = {
@@ -56,7 +55,6 @@ public class Plantilla {
 	
 	private ArrayList<int[][]> pieza = new ArrayList<>();
 
-	// ----------------------------------------
 	public Plantilla() {
 
 		this.z = z;
@@ -77,7 +75,7 @@ public class Plantilla {
 		this.pieza.add(this.t);
 	}
 
-	// Getters & Setters -------------------------
+	// Getters & Setters
     public ArrayList<int[][]> getPieza() {
 		return this.pieza;
 	}

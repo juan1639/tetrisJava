@@ -7,7 +7,6 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-// ====================================================================
 public class Marcadores {
 
 	private static int[] colorAreaMarcadores = {115, 103, 9, 180, 150, 15}; 
@@ -17,7 +16,6 @@ public class Marcadores {
 	private String[] argsTxt;
 	private Color color;
 
-	// --------------------------------------------------------------
 	public Marcadores(int id, int[] argsInt, String[] argsTxt, Color color) {
 
 		this.id = id;

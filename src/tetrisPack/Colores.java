@@ -2,7 +2,6 @@ package tetrisPack;
 
 import java.util.ArrayList;
 
-// ========================================================================
 public class Colores {
 
     public static int[][] piezas = {

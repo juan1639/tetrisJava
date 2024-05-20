@@ -7,14 +7,12 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-// ====================================================================
 public class Gameover {
 
 	private int[] argsInt;
 	private String[] argsTxt;
 	private Color color;
 
-	// -------------------------------------------------------------
 	public Gameover(int[] argsInt, String[] argsTxt) {
 
 		this.argsInt = argsInt;

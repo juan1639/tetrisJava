@@ -3,7 +3,6 @@ package tetrisPack;
 import java.awt.Color;
 import java.awt.Graphics;
 
-// ======================================================================
 public class Pieza {
 
 	private int x;
@@ -14,7 +13,6 @@ public class Pieza {
 	private int[] colorPieza;
 	private int rotacion;
 
-	// ------------------------------------------------------------
 	public Pieza(int x, int y, int[][] idPieza, int col, int filas, int[] colorPieza) {
 
 		this.x = x;
@@ -174,7 +172,7 @@ public class Pieza {
         sett.setIncremento_dificultad(contador);
 	}
 
-	// Getters & Setters ----------------------
+	// Getters & Setters
 	public int getX() {
 		return this.x;
 	}

@@ -3,7 +3,6 @@ package tetrisPack;
 import java.awt.Color;
 import java.awt.Graphics;
 
-// ====================================================================
 public class Fondo {
 
 	private int columna;
@@ -12,7 +11,6 @@ public class Fondo {
 	private int alto;
 	private Boolean valor;
 
-	// --------------------------------------------------------
 	public Fondo(int columna, int fila, int ancho, int alto) {
 
 		this.columna = columna;
@@ -106,7 +104,7 @@ public class Fondo {
 		}
 	}
 
-	// Getters & Setters ----------------------
+	// Getters & Setters
 	public int getColumna() {
 		return this.columna;
 	}

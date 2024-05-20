@@ -1,6 +1,5 @@
 package tetrisPack;
 
-// ========================================================================
 public class Pausaniveles {
 
 	public static void pausar_entreNiveles(Settings sett) {
