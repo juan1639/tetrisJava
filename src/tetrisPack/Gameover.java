@@ -9,14 +9,24 @@ import javax.swing.JPanel;
 
 public class Gameover {
 
+	private Sonidos sonido;
+	
 	private int[] argsInt;
 	private String[] argsTxt;
 	private Color color;
-
+	
 	public Gameover(int[] argsInt, String[] argsTxt) {
 
 		this.argsInt = argsInt;
 		this.argsTxt = argsTxt;
+		
+		sonido = new Sonidos();
+	}
+	
+	public void sonido_gameover() {
+		
+		sonido.cargar_audio("src/gameover.wav");
+		sonido.play_sonido();
 	}
 
 	public void dibuja(Graphics g, JPanel panel) {

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class Ventana extends JPanel implements ActionListener {
 
     private Timer timer;
+    private Sonidos sonido;
 
     private Settings settings;
     private Plantilla plantilla;
@@ -51,6 +52,7 @@ public class Ventana extends JPanel implements ActionListener {
     private void inicializa() {
 
         loadSettings();
+        sonido = new Sonidos();
 
         addKeyListener(new TAdapter());
         setBackground(new Color(Colores.fondo[0], Colores.fondo[1], Colores.fondo[2]));
@@ -250,6 +252,9 @@ public class Ventana extends JPanel implements ActionListener {
                 } else if (salir_rejugar == JOptionPane.CANCEL_OPTION) {
                     System.out.println("Cancelar...");
                 }
+                
+            } else if (settings.getPausa_rejugar() == settings.MOMENTO_SONIDO_GAMEOVER) {
+            	gameover.sonido_gameover();
             }
 
         } else if (settings.estado.isEntreNiveles()) {
@@ -277,6 +282,8 @@ public class Ventana extends JPanel implements ActionListener {
                     settings.estado.setEnJuego(true);
                     settings.estado.setMenuPrincipal(false);
                     settings.setPausa_rejugar(99);
+                    sonido.cargar_audio("src/russia-tetris-game-puzzle.wav");
+            		sonido.play_sonido();
                 }
             }
         }

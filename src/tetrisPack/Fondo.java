@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Fondo {
+	
+	private static Sonidos sonido;
 
 	private int columna;
 	private int fila;
@@ -18,6 +20,8 @@ public class Fondo {
 		this.ancho = ancho;
 		this.alto = alto;
 		this.valor = false;
+		
+		sonido = new Sonidos();
 	}
 
 	public void dibuja(Graphics g) {
@@ -73,6 +77,8 @@ public class Fondo {
 					actualizarLineas ++;
 					sett.setLineas(actualizarLineas);
 					System.out.println("Lineas: " + sett.getLineas());
+					sonido.cargar_audio("src/disparo.wav");
+					sonido.play_sonido();
 
 					lineas_alavez ++;
 					actualizar_matrizFondo(sett, i, filas, columnas);

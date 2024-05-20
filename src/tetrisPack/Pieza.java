@@ -88,7 +88,7 @@ public class Pieza {
 
 					sett.estado.setGameOver(true);
 					sett.estado.setEnJuego(false);
-					sett.setPausa_rejugar(120);
+					sett.setPausa_rejugar(sett.TIEMPO_PAUSA_REJUGAR);
 				}
 
 				sett.setOtraPieza(true);

@@ -21,6 +21,8 @@ public class Settings {
 
 	public final int nro_chispas = 50;
 	public final int tiempo_infoLineas = 2000;
+	public final int TIEMPO_PAUSA_REJUGAR = 120;
+	public final int MOMENTO_SONIDO_GAMEOVER = (int) TIEMPO_PAUSA_REJUGAR / 2;
 
 	// Variables
 	private int[] gravedad = {
